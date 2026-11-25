@@ -25,35 +25,41 @@ and, in MATLAB, from the trustlab folder:
 
     run_all
 
-`run_all('published')` takes the feature selections stored in reference/ instead of running the clonal selection again; the results are the same. MATLAB calls Python for some steps; set the environment variable PYTHON if `python` is not on the path. Everything is written to results/.
+`run_all('published')` takes the feature selections stored in reference/ instead of running the clonal selection again. MATLAB calls Python for some steps; set the environment variable PYTHON if `python` is not on the path. Everything is written to results/.
 
 ## Outputs
 
 IDSAI (results/idsai/)
-- base: Tables 4, 5, 6 and 8, the values of Figs. 4 and 5; model.npz is the trained detector (the exact-match and bin-width count tables, the layer weights and the class weights), and it is checked against the test predictions when it is written
-- figures: Figs. 4 and 5, drawn from the base values
+- base: Tables 4, 5, 6 and 8, the values of Fig. 3 and the per-fold accuracies of Table 5; model.npz is the trained detector (the exact-match and bin-width count tables, the layer weights and the class weights), and it is checked against the test predictions when it is written
+- figures: Fig. 3 and a plot of the per-fold accuracies, drawn from the base values
 - base and conflict: Table 7
-- blocked: Table 7a
+- blocked: the blocked-split results (Section 5.2)
 - base and fpr: Table 9
-- nested: Table 10 and Fig. 6
+- nested: Table 10 and Fig. 4
 - partitions: the rows of the published split (train, calibration, test) and of the blocked split
 
 TRUSTLab (results/trustlab/)
-- data: Table 2(c)
-- pipeline: the closed-set model, Tables 12 and 13, the values of Figs. 3, 8 and 9, and the submitted zero-day protocol; model.mat is the trained model (coding of the selected features, feature and specialist weights, AIRS2 cells, thresholds and exact memory)
-- study: Tables 12, 13 and 14
-- nested: Tables 11, 11b, 11c and 11d
-- components: Tables 11e and 12b
-- grouped and splits: Tables 11f and 12c
-- portfree and common_far: Tables 11g, 12c, 12d and 12e
-- figures: Figs. 7, 7b, 8 and 9
+- data: Table 2(b)
+- pipeline: the closed-set model, Tables 13 and 14, the values of Figs. 2, 6 and 7, and the submitted zero-day protocol (Section 5.6); model.mat is the trained model (coding of the selected features, feature and specialist weights, AIRS2 cells, thresholds and exact memory)
+- study: Tables 13, 14 and 15
+- nested: Tables 11 and 12 and the per-round settings (Section 5.4)
+- components: Table 16 and the negative-selection and k-means columns of Table 11
+- grouped and splits: Tables 18 and 19
+- portfree and common_far: Tables 17 and 18 and the port-free results of Section 5.6
+- figures: Figs. 5, 6 and 7, and fig7b.png (held-out detection against false-alarm rate, with and without the ports)
 - exploit and nu_diag: the Exploitation round (Section 5.4) and the self-novelty threshold on the time-grouped split (Section 6.5)
 - partitions: the rows of the flow-level, time-grouped and session splits
 
 XGBoost results can differ in the last decimals between machines, as reported in Section 5.1 of the paper.
 The per-packet predictions of the original tuned-XGBoost run were not kept, so circ_block.py reproduces the rerun's block-bootstrap intervals given in Section 5.1, not the recorded ones.
 
-Table 15 repeats values from these tables. reference/ holds outputs of our own runs (the trained IDSAI detector idsai_model.npz, the TRUSTLab feature selections and weights, AIRS2 cells, thresholds, per-round settings, and the 13 PortScan rows dropped when the file was recovered); the pipeline compares its results with them in pipeline/checks.csv. partitions/ lists the rows of every split; reference/SHA256SUMS.txt gives the file hashes.
+Table 20 repeats values from these tables. reference/ holds outputs of our own runs (the trained IDSAI detector idsai_model.npz, the TRUSTLab feature selections and weights, AIRS2 cells, thresholds, per-round settings, and the 13 PortScan rows dropped when the file was recovered); the pipeline compares its results with them in pipeline/checks.csv. partitions/ lists the rows of every split; reference/SHA256SUMS.txt gives the file hashes.
+
+reference/per_row/ holds the per-row test outputs of the two closed-set models, as gzip CSV:
+- idsai_test_predictions.csv.gz: the 200,000 IDSAI test packets; row (IDSAI.csv data row, from 0), label, predicted (Tables 4 and 7, Fig. 3)
+- trustlab_test_outputs.csv.gz: the 900,334 TRUSTLab test flows; row (from 1, as in partitions/trustlab/test.txt), label, score (first phase), and the label at OP-SPEC, OP-F2 and OP-R95 (Tables 13 and 14, Figs. 6 and 7); a flow is forwarded to the second phase when its score is at least the threshold of the operating point (0.200124934, 0.406930029 and 0.555784523), which forwards 476,146, 402,894 and 370,845 flows
+
+The held-out (zero-day) rounds are not included per row: the IDSAI rounds write per-round counts and rates, and their per-packet scores come only from running the rounds again.
 
 ## Settings and seeds
 
