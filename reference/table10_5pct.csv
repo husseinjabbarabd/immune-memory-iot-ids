@@ -1,0 +1,11 @@
+family,ADR,EUR
+ARP spoofing,28.55,28.52
+Brute Force SSH,60.99,60.98
+DDoS MAC Flood,100,100
+ICMP echo request Flood,100,100
+IP Fragmentation,100,100
+SYN Flooding faster,100,0.51
+SYN/ACK Flooding,100,0.08
+SYN/ACK and RST Flooding,100,38.57
+TCP Null,100,100
+UDP port scan,100,100

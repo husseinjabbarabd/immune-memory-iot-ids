@@ -1,0 +1,15 @@
+{
+  "idsai": {
+    "csv": "data/idsai/IDSAI.csv",
+    "work": "work/idsai",
+    "results": "results/idsai"
+  },
+  "trustlab": {
+    "raw": "data/trustlab/01_Data_Raw",
+    "out": "data/trustlab/03_Outputs",
+    "sup": "data/trustlab/03_Outputs_Supervised",
+    "fs": "data/trustlab/03_Outputs_FS",
+    "counts": "data/trustlab/S02_class_counts.csv",
+    "results": "results/trustlab"
+  }
+}

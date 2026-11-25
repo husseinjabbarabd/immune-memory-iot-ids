@@ -1,0 +1,17 @@
+class,trainRows,cells
+API,101488,1166
+Benign,1646328,11388
+Bruteforce,67656,1227
+BufferOverflow,59089,643
+C2Beaconing,75937,1056
+DDoS,120845,147
+DNS,108074,796
+DoS,95999,34
+Evasion,54670,33
+Exfiltration,71522,427
+Exploitation,96369,1702
+MITM,67934,111
+PortScan,68842,519
+Slowloris,69622,20
+TLSSSL,78173,876
+WebBased,98526,911

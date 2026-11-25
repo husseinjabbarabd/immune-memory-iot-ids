@@ -1,0 +1,75 @@
+j,feature,inMask,weight_exp,weight_main
+1,Flow Duration,0,0,0
+2,Tot Fwd Pkts,0,0,0
+3,Tot Bwd Pkts,0,0,0
+4,TotLen Fwd Pkts,0,0,0
+5,TotLen Bwd Pkts,1,8,8
+6,Fwd Pkt Len Max,1,8,8
+7,Fwd Pkt Len Min,0,0,0
+8,Fwd Pkt Len Mean,0,0,0
+9,Fwd Pkt Len Std,0,0,0
+10,Bwd Pkt Len Max,1,8,8
+11,Bwd Pkt Len Min,0,0,0
+12,Bwd Pkt Len Mean,0,0,0
+13,Bwd Pkt Len Std,0,0,0
+14,Pkt Len Min,0,0,0
+15,Pkt Len Max,0,0,0
+16,Pkt Len Mean,0,0,0
+17,Pkt Len Std,0,0,0
+18,Pkt Len Var,0,0,0
+19,Flow Pkts/s,0,0,0
+20,Flow Byts/s,0,0,0
+21,Flow IAT Mean,0,0,0
+22,Flow IAT Std,0,0,0
+23,Flow IAT Max,0,0,0
+24,Flow IAT Min,0,0,0
+25,Fwd IAT Tot,0,0,0
+26,Fwd IAT Mean,0,0,0
+27,Fwd IAT Std,0,0,0
+28,Fwd IAT Max,0,0,0
+29,Fwd IAT Min,0,0,0
+30,Bwd IAT Tot,1,8,4
+31,Bwd IAT Mean,0,0,0
+32,Bwd IAT Std,0,0,0
+33,Bwd IAT Max,0,0,0
+34,Bwd IAT Min,0,0,0
+35,Fwd PSH Flags,0,0,0
+36,Bwd PSH Flags,0,0,0
+37,Fwd URG Flags,0,0,0
+38,Bwd URG Flags,0,0,0
+39,FIN Flag Cnt,0,0,0
+40,SYN Flag Cnt,0,0,0
+41,RST Flag Cnt,0,0,0
+42,PSH Flag Cnt,1,8,4
+43,ACK Flag Cnt,0,0,0
+44,URG Flag Cnt,0,0,0
+45,ECE Flag Cnt,0,0,0
+46,Down/Up Ratio,0,0,0
+47,Pkt Size Avg,1,8,8
+48,Fwd Seg Size Avg,0,0,0
+49,Bwd Seg Size Avg,0,0,0
+50,Fwd Byts/b Avg,0,0,0
+51,Bwd Byts/b Avg,1,1,1
+52,Fwd Pkts/b Avg,0,0,0
+53,Bwd Pkts/b Avg,0,0,0
+54,Fwd Blk Rate Avg,0,0,0
+55,Bwd Blk Rate Avg,0,0,0
+56,Fwd Header Len,1,4,4
+57,Bwd Header Len,0,0,0
+58,Subflow Fwd Pkts,0,0,0
+59,Subflow Fwd Byts,0,0,0
+60,Subflow Bwd Pkts,0,0,0
+61,Subflow Bwd Byts,0,0,0
+62,Init Fwd Win Byts,0,0,0
+63,Init Bwd Win Byts,0,0,0
+64,Active Mean,0,0,0
+65,Active Std,0,0,0
+66,Active Max,0,0,0
+67,Active Min,0,0,0
+68,Idle Mean,0,0,0
+69,Idle Std,0,0,0
+70,Idle Max,0,0,0
+71,Idle Min,0,0,0
+72,Src Port,1,8,8
+73,Dst Port,1,1,2
+74,Protocol,0,0,0
