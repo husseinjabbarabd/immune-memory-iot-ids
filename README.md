@@ -59,7 +59,7 @@ Table 20 repeats values from these tables.
 
 ## Reference files
 
-reference/ holds outputs of our own runs; the TRUSTLab pipeline compares its results with them in pipeline/checks.csv, and reference/SHA256SUMS.txt gives their hashes.
+reference/ holds outputs of our own runs; the TRUSTLab pipeline compares its results with them in pipeline/checks.csv, and reference/SHA256SUMS.txt gives their hashes. The hashes are of the files as stored in the repository, with LF line endings: a release zip matches them, while a Windows clone with core.autocrlf=true writes the CSV files with CRLF and does not. Up to v1.2 the list gave the CRLF hashes of the 24 CSV files outside per_row/; the files themselves are unchanged.
 - idsai_model.npz: the trained IDSAI detector
 - portscan_removed_rows.csv: the 13 PortScan rows dropped when the file was recovered
 - round_outputs.csv: the feature selection, weights and settings of each of the 16 nested TRUSTLab rounds; run_nested reads it when run_all('published') is used
@@ -78,13 +78,19 @@ reference/per_row/ holds per-row test outputs as gzip CSV. Flags are 1 when the 
 - trustlab_test_outputs.csv.gz: the 900,334 TRUSTLab test flows; row (from 1, as in partitions/trustlab/test.txt), label, score (first phase), and the label at OP-SPEC, OP-F2 and OP-R95 (Tables 13 and 14, Figs. 6 and 7); a flow is forwarded to the second phase when its score is at least the threshold of the operating point (0.200124934, 0.406930029 and 0.555784523), which forwards 476,146, 402,894 and 370,845 flows
 - nested_r01.csv.gz to nested_r16.csv.gz: the 900,334 TRUSTLab test flows in each of the 16 nested held-out rounds (Table 11, Fig. 5). Rounds 1 to 15 withhold API, Bruteforce, BufferOverflow, C2Beaconing, DDoS, DNS, DoS, Evasion, Exfiltration, Exploitation, MITM, PortScan, Slowloris, TLSSSL and WebBased; round 16 withholds DoS and Slowloris together. Columns: row, label, round, s (base score), q (self-novelty score), and the flag of the combined rule (comb), the base score alone (base), the control at the same validation false-alarm rate (ctrl) and the self-novelty arm alone (arm), each at OP-SPEC, OP-F2 and OP-R95 (spec, f2, r95)
 - nested_thresholds.csv: the thresholds of each nested round and operating point (tau and nu of the combined rule, tauM of the control, nuM of the arm)
+- portfree_nested_r01.csv.gz to portfree_nested_r16.csv.gz and portfree_nested_thresholds.csv: the same 16 rounds without the port features (Table 17, Section 5.6), with the columns of the nested files
+- grouped_submitted_zd01.csv.gz and grouped_submitted_zd03.csv.gz to grouped_submitted_zd16.csv.gz, and grouped_submitted_thresholds.csv: the 944,917 test flows of the time-grouped split in the 15 rounds of the submitted zero-day protocol (Section 5.6, Table 20); zdNN withholds class NN in the order API, Benign, Bruteforce, BufferOverflow, C2Beaconing, DDoS, DNS, DoS, Evasion, Exfiltration, Exploitation, MITM, PortScan, Slowloris, TLSSSL, WebBased (Benign is never withheld, so there is no zd02); row as in partitions/trustlab/grouped_test.txt, and the columns of the nested files
+- portfree_closed_test.csv.gz and grouped_closed_test.csv.gz, with portfree_closed_thresholds.csv and grouped_closed_thresholds.csv: the closed-set model without the port features (900,334 flows, row as in partitions/trustlab/test.txt) and on the time-grouped split (944,917 flows, row as in partitions/trustlab/grouped_test.txt) (Table 18, Section 5.6). Columns: row, label, score (first phase), q (self-novelty score), the label at OP-SPEC, OP-F2 and OP-R95 (op_spec, op_f2, op_r95), and 1 when the flow is forwarded to the second phase at each operating point (fwd_spec, fwd_f2, fwd_r95); the thresholds files give tau for each operating point
 
-In round 4 at OP-F2, one flow (row 3852893) scores 6e-17 below tau and prints the same as tau to nine digits; a flag recomputed from the printed values marks it, while the file and the paper do not.
+A few flows score less than 1e-16 below a threshold and print the same as it to nine digits; a flag recomputed from the printed values marks them, while the files and the paper do not:
+- nested round 4, OP-F2: one flow (row 3852893)
+- port-free nested round 6, control at OP-R95: 5,587 flows that share one score, 5.6e-17 below tauM
+- port-free nested round 9, control at OP-SPEC: one flow (row 1784034)
+- port-free closed set, OP-SPEC: one flow (row 1310644)
 
 The other per-row outputs are not in the release. The scripts write them when they are run:
-- TRUSTLab port-free runs, run_portfree.m: portfree/test_rows.mat (closed set), portfree/zdNN/score_test.mat and zd_NN.mat (submitted zero-day protocol), and the port-free nested rounds (portfree/rNN/score_test.mat and round_NN.mat, through run_nested)
-- TRUSTLab time-grouped split, run_grouped.m: grouped/test_rows.mat, grouped/zdNN/score_test.mat and zd_NN.mat
-- TRUSTLab submitted zero-day protocol with the ports, run_pipeline.m: pipeline/zdNN/score_test.mat and zd_NN.mat
+- TRUSTLab submitted zero-day protocol on the random split with the ports, run_pipeline.m: pipeline/zdNN/score_test.mat and zd_NN.mat
+- TRUSTLab submitted zero-day protocol on the random split without the ports, run_portfree.m: portfree/zdNN/score_test.mat and zd_NN.mat
 
 The negative-selection and k-means rules of the TRUSTLab open-set comparison (run_open.m) write per-round rates only (components/open_nested.csv). The IDSAI held-out (zero-day) rounds write per-round counts and rates, the values reported in the paper; their per-packet outputs were not stored.
 
